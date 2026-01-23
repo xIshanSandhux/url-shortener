@@ -1,13 +1,17 @@
-#include "crow_all.h"
+#include <boost/json/src.hpp>
+#include <iostream>
+namespace json = boost::json;
+using namespace std;
 
 int main(){
-    crow::SimpleApp app; //define your crow application
 
-    //define your endpoint at the root directory
-    CROW_ROUTE(app, "/")([](){
-        return "Hello world";
-    });
+    json::object j;
 
-    //set the port, set the app to run on multiple threads, and run the app
-    app.port(18080).multithreaded().run();
+    j["h"] = 12;
+
+    // cout<<"hello"<<endl;
+    cout<<j<<endl;
+    // cout<<"hello"<<endl;
+
+    return 0;
 }

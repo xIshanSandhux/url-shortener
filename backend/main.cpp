@@ -1,33 +1,44 @@
 #include <boost/asio.hpp>
 #include <boost/beast.hpp>
+#include <boost/json/impl/serialize.ipp>
+#include <boost/json/src.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
-// #include <boost/json.hpp>
-// #include <boost/json/object.hpp>
-// #include <boost/json/serialize.hpp>
 
 #include <iostream>
 using namespace std;
 namespace beast = boost::beast;
 namespace http = beast::http;
+namespace json = boost::json;
 using boost::asio::ip::tcp;
 
 //creating sample request handler
 void handle_request(http::request<http::string_body> req, 
         http::response<http::string_body> &res
         ){
-    cout<<"Method: "<<req.method()<<endl;
-    cout<<"Target: "<<req.target()<<endl;
-    cout<<"Body: "<<req.body()<<endl;
+    json::object json_response;
+    // cout<<"Method: "<<req.method()<<endl;
+    // cout<<"Target: "<<req.target()<<endl;
+    // cout<<"Body: "<<req.body()<<endl;
 
+    //basic health endpoint (will update as the project goes on)
     if(req.method()==http::verb::get && req.target()=="/health"){
-        res.body() = "server is running";
-        cout<<res.body()<<endl;
+        json_response["message"] = "Server is Running";
+    }
+    /*
+     * Post request to create the short url
+     * Param: long URL
+     * return: short url || status: 201 
+     */
+    else if(req.method()==http::verb::post && req.target()=="/short-url"){
+        // will be calling the function which will process the long url
+        // and returning the short-url
     }
 
+    res.body() = json::serialize(json_response);
     res.result(http::status::ok);
-    res.set(http::field::content_type,"text/html");
+    res.set(http::field::content_type,"application/json");
     res.prepare_payload();
 }
 
