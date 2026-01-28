@@ -7,6 +7,7 @@
 #include <boost/beast/http/string_body.hpp>
 
 #include <iostream>
+#include "endpoints.h"
 using namespace std;
 namespace beast = boost::beast;
 namespace http = beast::http;
@@ -18,8 +19,8 @@ void handle_request(http::request<http::string_body> req,
         http::response<http::string_body> &res
         ){
     json::object json_response;
-    // cout<<"Method: "<<req.method()<<endl;
-    // cout<<"Target: "<<req.target()<<endl;
+    cout<<"Method: "<<req.method()<<endl;
+    cout<<"Target: "<<req.target()<<endl;
     // cout<<"Body: "<<req.body()<<endl;
 
     //basic health endpoint (will update as the project goes on)
@@ -34,6 +35,7 @@ void handle_request(http::request<http::string_body> req,
     else if(req.method()==http::verb::post && req.target()=="/short-url"){
         // will be calling the function which will process the long url
         // and returning the short-url
+        shorten();
     }
 
     res.body() = json::serialize(json_response);

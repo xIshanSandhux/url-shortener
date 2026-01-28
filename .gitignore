@@ -1,6 +1,6 @@
 asio
 try
-main
+server
 test.exe
 .clangd
 asio.hpp
