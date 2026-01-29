@@ -1,11 +1,14 @@
 #include <boost/asio.hpp>
 #include <boost/beast.hpp>
+#include <boost/json/impl/kind.ipp>
 #include <boost/json/impl/serialize.ipp>
+#include <boost/json/object.hpp>
 #include <boost/json/src.hpp>
 #include <boost/beast/core/flat_buffer.hpp>
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 
+#include <boost/json/value.hpp>
 #include <iostream>
 #include "endpoints.h"
 using namespace std;
@@ -21,7 +24,10 @@ void handle_request(http::request<http::string_body> req,
     json::object json_response;
     cout<<"Method: "<<req.method()<<endl;
     cout<<"Target: "<<req.target()<<endl;
-    // cout<<"Body: "<<req.body()<<endl;
+    cout<<"Body: "<<req.body()<<endl;
+    json::value parsed = json::parse(req.body());
+    json::object b = parsed.as_object();
+    string url = b.at("long_url").as_string().c_str();
 
     //basic health endpoint (will update as the project goes on)
     if(req.method()==http::verb::get && req.target()=="/health"){
@@ -35,7 +41,7 @@ void handle_request(http::request<http::string_body> req,
     else if(req.method()==http::verb::post && req.target()=="/short-url"){
         // will be calling the function which will process the long url
         // and returning the short-url
-        shorten();
+        shorten(url);
     }
 
     res.body() = json::serialize(json_response);

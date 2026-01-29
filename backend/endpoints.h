@@ -1,6 +1,7 @@
 #ifndef ENDPOINTS_H
 #define ENDPOINTS_H
-
-void shorten();
+#include <iostream>
+using namespace std;
+void shorten(std::string long_url);
 
 #endif

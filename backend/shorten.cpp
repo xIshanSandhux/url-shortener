@@ -2,6 +2,6 @@
 #include <iostream>
 using namespace std;
 //mock endpoint
-void shorten(){
-    cout<<"shortened url will be send via this function"<<endl;
+void shorten(string long_url){
+    cout<<"Called from the shorten method: "<<long_url<<endl;
 }
