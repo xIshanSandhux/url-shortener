@@ -1,17 +1,16 @@
-#include <boost/json/src.hpp>
+#include <cstdlib>
 #include <iostream>
-namespace json = boost::json;
+#include <random>
 using namespace std;
 
 int main(){
 
-    json::object j;
-
-    j["h"] = 12;
-
-    // cout<<"hello"<<endl;
-    cout<<j<<endl;
-    // cout<<"hello"<<endl;
+    int r = rand();
+    random_device rd;
+    mt19937_64 gen(rd());
+    cout<<gen()<<endl;
+    // uniform_int_distribution
+    cout<<r<<endl;
 
     return 0;
 }

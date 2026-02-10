@@ -31,3 +31,7 @@ string uniqueId(){
     cout<<s<<endl;
     return s;
 }
+
+int idGenerator(){
+    return 0;
+}
