@@ -1,5 +1,7 @@
 asio
 try
+test.db
+test1.db
 server
 test.exe
 .clangd

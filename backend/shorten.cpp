@@ -33,5 +33,6 @@ string uniqueId(){
 }
 
 int idGenerator(){
+    // Generating a 64 bit random number
     return 0;
 }
