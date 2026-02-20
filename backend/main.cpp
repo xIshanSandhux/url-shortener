@@ -11,6 +11,7 @@
 #include <boost/json/value.hpp>
 #include <iostream>
 #include "endpoints.h"
+#include "db.h"
 using namespace std;
 namespace beast = boost::beast;
 namespace http = beast::http;
@@ -60,6 +61,7 @@ void run_server(){
     tcp::acceptor acceptor(io_context, endpoint);
     
     cout<<"Server Started. Waiting for Connections.."<<endl;
+    Database db("urls.db");
 
     for(;;){
         // creating an empty socket object
