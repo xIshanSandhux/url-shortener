@@ -1,4 +1,5 @@
 #include <boost/asio.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/beast.hpp>
 #include <boost/json/impl/kind.ipp>
 #include <boost/json/impl/serialize.ipp>
@@ -9,6 +10,7 @@
 #include <boost/beast/http/string_body.hpp>
 
 #include <boost/json/value.hpp>
+#include <exception>
 #include <iostream>
 #include "endpoints.h"
 #include "db.h"
@@ -54,8 +56,15 @@ void handle_request(http::request<http::string_body> req,
 
 
 int main(){
-    Database db("urls.db");
-    HttpServer server(8080,db);
-    server.run_server();
+    try{
+        boost::asio::io_context io_context;
+        Database db("urls.db");
+        HttpServer server(8080,db);
+        server.run_server();
+    }
+    catch(exception& e){
+        cerr<<"Error while starting up the server: "<<e.what()<<endl;
+        return 1;
+    }
     return 0;
 }
