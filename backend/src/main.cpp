@@ -59,8 +59,8 @@ int main(){
     try{
         boost::asio::io_context io_context;
         Database db("urls.db");
-        HttpServer server(8080,db);
-        server.run_server();
+        HttpServer server(8080,db,io_context);
+        io_context.run();
     }
     catch(exception& e){
         cerr<<"Error while starting up the server: "<<e.what()<<endl;
