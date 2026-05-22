@@ -1,5 +1,6 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
+#include "connection.h"
 #include <boost/asio.hpp>
 using boost::asio::ip::tcp;
 class Database;
@@ -12,10 +13,10 @@ class HttpServer{
         boost::asio::io_context& io_context_;
         tcp::acceptor accept_;
         void run_server();
+        void handle_accept(TcpConnection::pointer new_connection,const boost::system::error_code& error);
 
     public:
         HttpServer(int port, Database& db, boost::asio::io_context& io_context);
-        // void run_server();
 };
 
 #endif 

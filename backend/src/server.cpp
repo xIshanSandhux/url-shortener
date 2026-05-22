@@ -4,6 +4,7 @@
 #include <boost/beast/http/message.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/json/value.hpp>
+#include <boost/system/detail/error_code.hpp>
 using namespace std;
 
 HttpServer::HttpServer(int port,Database &db,
@@ -19,4 +20,22 @@ HttpServer::HttpServer(int port,Database &db,
     }
 
 void HttpServer::run_server(){
+    TcpConnection::pointer new_connection = TcpConnection::create(io_context_);
+
+    accept_.async_accept(
+            new_connection->socket(),
+            bind(&HttpServer::handle_accept, this, new_connection, boost::asio::placeholders::error)
+            );
+}
+
+// handling incoming client requests
+void HttpServer::handle_accept(TcpConnection::pointer new_connection,const boost::system::error_code& error){
+    // if no error then process the request
+    if(!error){
+        new_connection->process();
+    }
+
+    // to start accepting new connections
+    run_server();
+
 }
