@@ -2,6 +2,7 @@
 #define SERVER_HPP
 #include "connection.h"
 #include <boost/asio.hpp>
+using namespace std;
 using boost::asio::ip::tcp;
 class Database;
 

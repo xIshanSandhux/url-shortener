@@ -7,6 +7,7 @@
 #include <boost/system/detail/error_code.hpp>
 using namespace std;
 
+// server constructor
 HttpServer::HttpServer(int port,Database &db,
         boost::asio::io_context& io_context
     ):
@@ -19,6 +20,7 @@ HttpServer::HttpServer(int port,Database &db,
         run_server();
     }
 
+// starting a new connection + accepting client connections
 void HttpServer::run_server(){
     TcpConnection::pointer new_connection = TcpConnection::create(io_context_);
 

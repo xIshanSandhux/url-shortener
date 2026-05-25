@@ -22,37 +22,37 @@ namespace json = boost::json;
 using boost::asio::ip::tcp;
 
 //creating sample request handler
-void handle_request(http::request<http::string_body> req, 
-        http::response<http::string_body> &res
-        ){
-    json::object json_response;
-    cout<<"Method: "<<req.method()<<endl;
-    cout<<"Target: "<<req.target()<<endl;
-    cout<<"Body: "<<req.body()<<endl;
-    json::value parsed = json::parse(req.body());
-    json::object b = parsed.as_object();
-    string url = b.at("long_url").as_string().c_str();
-
-    //basic health endpoint (will update as the project goes on)
-    if(req.method()==http::verb::get && req.target()=="/health"){
-        json_response["message"] = "Server is Running";
-    }
-    /*
-     * Post request to create the short url
-     * Param: long URL
-     * return: short url || status: 201 
-     */
-    else if(req.method()==http::verb::post && req.target()=="/short-url"){
-        // will be calling the function which will process the long url
-        // and returning the short-url
-        shorten(url);
-    }
-
-    res.body() = json::serialize(json_response);
-    res.result(http::status::ok);
-    res.set(http::field::content_type,"application/json");
-    res.prepare_payload();
-}
+// void handle_request(http::request<http::string_body> req, 
+//         http::response<http::string_body> &res
+//         ){
+//     json::object json_response;
+//     cout<<"Method: "<<req.method()<<endl;
+//     cout<<"Target: "<<req.target()<<endl;
+//     cout<<"Body: "<<req.body()<<endl;
+//     json::value parsed = json::parse(req.body());
+//     json::object b = parsed.as_object();
+//     string url = b.at("long_url").as_string().c_str();
+//
+//     //basic health endpoint (will update as the project goes on)
+//     if(req.method()==http::verb::get && req.target()=="/health"){
+//         json_response["message"] = "Server is Running";
+//     }
+//     /*
+//      * Post request to create the short url
+//      * Param: long URL
+//      * return: short url || status: 201 
+//      */
+//     else if(req.method()==http::verb::post && req.target()=="/short-url"){
+//         // will be calling the function which will process the long url
+//         // and returning the short-url
+//         shorten(url);
+//     }
+//
+//     res.body() = json::serialize(json_response);
+//     res.result(http::status::ok);
+//     res.set(http::field::content_type,"application/json");
+//     res.prepare_payload();
+// }
 
 
 int main(){

@@ -2,6 +2,7 @@
 #define CONNECTION_HPP
 #include <boost/asio.hpp>
 #include <memory>
+#include <iostream>
 using boost::asio::ip::tcp;
 using namespace std;
 class TcpConnection:
