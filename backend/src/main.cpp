@@ -58,8 +58,9 @@ using boost::asio::ip::tcp;
 int main(){
     try{
         boost::asio::io_context io_context;
-        Database db("urls.db");
-        HttpServer server(8080,db,io_context);
+        // Database db("urls.db");
+        // HttpServer server(8080,db,io_context);
+        HttpServer server(8080,io_context);
         io_context.run();
     }
     catch(exception& e){

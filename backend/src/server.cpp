@@ -8,11 +8,11 @@
 using namespace std;
 
 // server constructor
-HttpServer::HttpServer(int port,Database &db,
+HttpServer::HttpServer(int port,/*Database &db,*/
         boost::asio::io_context& io_context
     ):
     port_(port),
-    db_(db),
+    // db_(db),
     io_context_(io_context),
     accept_(io_context_, tcp::endpoint(tcp::v4(),port_))
     {
