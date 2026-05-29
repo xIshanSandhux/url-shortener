@@ -4,7 +4,7 @@
 #include <boost/asio.hpp>
 using namespace std;
 using boost::asio::ip::tcp;
-class Database;
+// class Database;
 
 class HttpServer{
     private:
