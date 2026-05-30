@@ -26,7 +26,9 @@ void HttpServer::run_server(){
 
     accept_.async_accept(
             new_connection->socket(),
-            bind(&HttpServer::handle_accept, this, new_connection, boost::asio::placeholders::error)
+            [this,new_connection] (const boost::system::error_code& error){
+                handle_accept(new_connection, error);
+            }
             );
 }
 
