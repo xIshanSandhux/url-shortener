@@ -8,16 +8,16 @@ using boost::asio::ip::tcp;
 
 class HttpServer{
     private:
-        // Database &db_;
         int port_;
         // reference to io_context
         boost::asio::io_context& io_context_;
         tcp::acceptor accept_;
         void run_server();
-        void handle_accept(TcpConnection::pointer new_connection,const boost::system::error_code& error);
+        void handle_accept(TcpConnection::pointer new_connection,
+                const boost::system::error_code& error);
 
     public:
-        HttpServer(int port,/* Database& db,*/ boost::asio::io_context& io_context);
+        HttpServer(int port, boost::asio::io_context& io_context);
 };
 
 #endif 
