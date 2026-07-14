@@ -23,6 +23,9 @@ HttpServer::HttpServer(int port,
 void HttpServer::run_server(){
     TcpConnection::pointer new_connection = TcpConnection::create(io_context_);
 
+    // lamdba function which uses "this" because there will always be 1 instance
+    // of the HttpServer object and it will never get destroyed 
+    // so the complier knows which HttpServer obj to use.
     accept_.async_accept(
             new_connection->socket(),
             [this,new_connection] (const boost::system::error_code& error){
