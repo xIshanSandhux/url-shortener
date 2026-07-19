@@ -14,7 +14,8 @@
 #define PARSER_H
 #include <iostream>
 #include <map>
-#include <boost/asio.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/streambuf.hpp>
 
 struct HttpRequest {
     std::string method;
@@ -22,8 +23,9 @@ struct HttpRequest {
     std::string version;
     std::map<std::string,std::string> headers;
     std::string body;
+
 };
 
 
-HttpRequest parseRequest(boost::asio::ip::tcp& socket);
+HttpRequest parseRequest(boost::asio::ip::tcp::socket& socket);
 #endif
