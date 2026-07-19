@@ -1,11 +1,20 @@
-/* to parse the http request need to 
- * 1.read it until the delimeter which is \r\n\r\n 
- * that means its the end of the headers and from the headers get the content length
- * and read the bytes based on that
- *
- * 2. that will be stored in a buffer then convert that into a istream
- * and then read it.
- *
- * 3 . read the body if content length is greater than 0 and add it to the struct
- * 4 . return that as the HTTP request headers as a struct 
- */
+#include "http_request_parser.h"
+#include <boost/asio/impl/read_until.hpp>
+#include <boost/asio/streambuf.hpp>
+
+void processRequest(boost::asio::streambuf& buf, HttpRequest& req){
+
+}
+
+HttpRequest parseRequest(boost::asio::ip::tcp& socket){
+    HttpRequest finalreq;
+    boost::asio::streambuf buf;
+    try{
+        // reading the stream from socket until the end of headers
+        boost::asio::async_read_until(socket,buf,"\r\n\r\n",
+                [&buf,&finalreq](boost::system::error_code& ec, std::size_t bt){
+                processRequest(buf,finalreq);
+                }
+    }
+}
+
