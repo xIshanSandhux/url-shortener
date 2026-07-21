@@ -20,7 +20,6 @@ std::string response =
         "Content-Length: 16\r\n"
         "\r\n"
         "sample response\n";
-cout<<"ENETERED THE PROCESS FUNCTION"<<endl;
     // gives the OS what to send as a response and because this is async need a callback
     // to make sure everything was sent as expected without errors
     // the callback gets triggered once the io detects that the message was sent
